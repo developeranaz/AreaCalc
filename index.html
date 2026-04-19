@@ -14,6 +14,7 @@
     --accent: #f6c90e;
     --accent2: #3fb950;
     --accent3: #ff7b72;
+    --accent4: #79c0ff;
     --text: #e6edf3;
     --text-muted: #7d8590;
     --text-dim: #484f58;
@@ -22,7 +23,6 @@
     --mono: 'Space Mono', monospace;
     --sans: 'Sora', sans-serif;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -30,82 +30,40 @@
     color: var(--text);
     font-family: var(--sans);
     min-height: 100vh;
-    padding: 24px 16px 60px;
+    padding: 24px 16px 80px;
     background-image:
       radial-gradient(ellipse 80% 60% at 50% -10%, rgba(246,201,14,0.08) 0%, transparent 60%),
       radial-gradient(ellipse 60% 40% at 100% 80%, rgba(63,185,80,0.06) 0%, transparent 50%);
   }
 
-  header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .logo-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
-
-  .logo-icon {
-    width: 38px; height: 38px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-  }
-
-  h1 {
-    font-family: var(--sans);
-    font-size: 1.7rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: var(--text);
-  }
-
+  header { text-align: center; margin-bottom: 28px; }
+  .logo-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 4px; }
+  .logo-icon { width: 38px; height: 38px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  h1 { font-family: var(--sans); font-size: 1.7rem; font-weight: 700; letter-spacing: -0.5px; }
   h1 span { color: var(--accent); }
-
-  .subtitle {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
-  }
+  .subtitle { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.5px; }
 
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 20px;
-    max-width: 520px;
-    margin: 0 auto 16px;
+    max-width: 560px;
+    margin: 0 auto 14px;
   }
-
   .card-title {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-family: var(--mono);
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
 
-  .unit-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .unit-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    font-family: var(--mono);
-  }
+  .unit-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .unit-label { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; font-family: var(--mono); min-width: 90px; }
 
   select {
     flex: 1;
@@ -113,9 +71,9 @@
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 9px 12px;
+    padding: 9px 32px 9px 12px;
     font-family: var(--sans);
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     cursor: pointer;
     outline: none;
     transition: border-color 0.2s;
@@ -123,27 +81,13 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237d8590' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
-    padding-right: 32px;
   }
   select:focus { border-color: var(--accent); }
+  select.master-highlight { border-color: rgba(246,201,14,0.35); }
 
-  .input-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 10px;
-    align-items: end;
-    margin-bottom: 0;
-  }
-
+  .input-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; }
   .field-group { display: flex; flex-direction: column; gap: 6px; }
-
-  .field-label {
-    font-size: 0.7rem;
-    font-family: var(--mono);
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  .field-label { font-size: 0.68rem; font-family: var(--mono); color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
 
   input[type="number"] {
     background: var(--surface2);
@@ -157,10 +101,7 @@
     width: 100%;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  input[type="number"]:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(246,201,14,0.12);
-  }
+  input[type="number"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(246,201,14,0.12); }
   input[type="number"]::placeholder { color: var(--text-dim); }
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button { opacity: 0; }
@@ -171,277 +112,243 @@
     border: none;
     border-radius: 8px;
     width: 44px; height: 44px;
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.5rem; font-weight: 700;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     flex-shrink: 0;
-    align-self: end;
   }
   .add-btn:hover { background: #ffd740; transform: scale(1.07); box-shadow: 0 4px 16px rgba(246,201,14,0.3); }
   .add-btn:active { transform: scale(0.96); }
 
-  /* Error message */
-  .error-msg {
-    font-size: 0.78rem;
-    color: var(--accent3);
-    font-family: var(--mono);
-    margin-top: 10px;
-    min-height: 18px;
-    display: none;
-  }
+  .error-msg { font-size: 0.76rem; color: var(--accent3); font-family: var(--mono); margin-top: 10px; display: none; }
   .error-msg.show { display: block; }
 
-  /* Entries list */
+  .or-divider {
+    display: flex; align-items: center; gap: 10px;
+    margin: 18px 0 14px;
+    color: var(--text-dim); font-size: 0.68rem;
+    font-family: var(--mono); letter-spacing: 1px;
+  }
+  .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  textarea.paste-area {
+    background: var(--surface2);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    width: 100%;
+    min-height: 96px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.7;
+    display: block;
+  }
+  textarea.paste-area:focus { border-color: var(--accent4); box-shadow: 0 0 0 3px rgba(121,192,255,0.1); border-style: solid; }
+  textarea.paste-area::placeholder { color: var(--text-dim); }
+
+  .paste-row { display: flex; gap: 8px; margin-top: 8px; }
+  .paste-btn {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--accent4);
+    color: var(--accent4);
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .paste-btn:hover { background: rgba(121,192,255,0.1); }
+
+  .hint { font-size: 0.67rem; color: var(--text-dim); font-family: var(--mono); margin-top: 7px; line-height: 1.5; }
+  .hint.ok  { color: var(--accent2); }
+  .hint.err { color: var(--accent3); }
+  .hint.inf { color: var(--accent4); }
+
+  /* Entries */
   .entries-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    max-width: 520px;
-    margin: 0 auto 16px;
+    max-width: 560px;
+    margin: 0 auto 14px;
     overflow: hidden;
   }
-
   .entries-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px;
     border-bottom: 1px solid var(--border);
+    gap: 8px; flex-wrap: wrap;
   }
-
   .entries-header .card-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-
-  .clear-btn {
+  .hdr-btns { display: flex; gap: 6px; }
+  .ghost-btn {
     background: transparent;
     border: 1px solid var(--border);
     color: var(--text-muted);
     border-radius: 6px;
     padding: 4px 10px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-family: var(--mono);
     cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
   }
-  .clear-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+  .ghost-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+  .ghost-btn.export-btn:hover { border-color: var(--accent2); color: var(--accent2); }
 
-  .entries-list { padding: 12px 0; }
-
-  .empty-state {
-    text-align: center;
-    padding: 32px 20px;
-    color: var(--text-dim);
-    font-size: 0.82rem;
-    font-family: var(--mono);
-  }
-
-  .empty-state .empty-icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.4; }
+  .entries-list { padding: 8px 0; }
+  .empty-state { text-align: center; padding: 28px 20px; color: var(--text-dim); font-size: 0.78rem; font-family: var(--mono); line-height: 1.9; }
+  .empty-icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.3; }
 
   .entry-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 22px 1fr auto auto auto;
     align-items: center;
-    padding: 12px 20px;
-    gap: 12px;
+    padding: 10px 18px;
+    gap: 10px;
     border-bottom: 1px solid rgba(48,54,61,0.5);
-    animation: slideIn 0.25s ease;
+    animation: slideIn 0.22s ease;
     transition: background 0.15s;
   }
   .entry-item:last-child { border-bottom: none; }
-  .entry-item:hover { background: rgba(255,255,255,0.02); }
+  .entry-item:hover { background: rgba(255,255,255,0.018); }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .entry-num {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    width: 22px;
-    flex-shrink: 0;
-    text-align: right;
-  }
-
-  .entry-dims {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    flex: 1;
-  }
-
-  .entry-dims .dim-unit { font-size: 0.68rem; color: var(--text-dim); }
-
-  .entry-area {
-    text-align: right;
-    font-family: var(--mono);
-    font-size: 0.88rem;
-    color: var(--accent2);
-    flex-shrink: 0;
-  }
-
-  .entry-area .area-unit { font-size: 0.65rem; color: var(--text-dim); display: block; }
-
+  .entry-num { font-family: var(--mono); font-size: 0.66rem; color: var(--text-dim); text-align: right; }
+  .entry-dims { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .entry-dims .dim-unit { font-size: 0.63rem; color: var(--text-dim); }
+  .entry-area-inp { font-family: var(--mono); font-size: 0.76rem; color: var(--text-muted); text-align: right; white-space: nowrap; }
+  .entry-area-inp .au { font-size: 0.6rem; color: var(--text-dim); }
+  .entry-area-mst { font-family: var(--mono); font-size: 0.84rem; color: var(--accent2); font-weight: 700; text-align: right; white-space: nowrap; }
+  .entry-area-mst .au { font-size: 0.6rem; color: var(--text-dim); display: block; font-weight: 400; }
   .delete-entry {
-    background: transparent;
-    border: none;
-    color: var(--text-dim);
-    cursor: pointer;
-    font-size: 0.9rem;
-    padding: 2px 4px;
-    border-radius: 4px;
-    transition: color 0.2s;
-    flex-shrink: 0;
+    background: transparent; border: none; color: var(--text-dim);
+    cursor: pointer; font-size: 0.85rem; padding: 2px 4px;
+    border-radius: 4px; transition: color 0.2s;
   }
   .delete-entry:hover { color: var(--accent3); }
 
-  /* Results grid */
+  /* Results */
   .results-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    max-width: 520px;
-    margin: 0 auto 16px;
+    max-width: 560px;
+    margin: 0 auto 14px;
     overflow: hidden;
   }
-
   .results-header {
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 12px 18px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
   }
-
   .results-header .card-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-
   .count-badge {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    background: rgba(63,185,80,0.15);
-    color: var(--accent2);
-    border: 1px solid rgba(63,185,80,0.3);
-    border-radius: 20px;
-    padding: 2px 10px;
+    font-family: var(--mono); font-size: 0.68rem;
+    background: rgba(63,185,80,0.12); color: var(--accent2);
+    border: 1px solid rgba(63,185,80,0.25); border-radius: 20px; padding: 2px 10px;
   }
-
-  .results-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .tab-row { display: flex; border-bottom: 1px solid var(--border); }
+  .tab-btn {
+    flex: 1; background: transparent; border: none;
+    border-bottom: 2px solid transparent; color: var(--text-muted);
+    font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
+    padding: 11px 12px; cursor: pointer; transition: all 0.2s; margin-bottom: -1px;
   }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn:hover:not(.active) { color: var(--text); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr; }
   .result-cell {
-    padding: 14px 18px;
+    padding: 13px 16px;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     transition: background 0.15s;
   }
   .result-cell:nth-child(even) { border-right: none; }
   .result-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .result-cell.is-master { background: rgba(246,201,14,0.055); border-color: rgba(246,201,14,0.18) !important; }
+  .result-unit { font-size: 0.62rem; font-family: var(--mono); color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.3px; }
+  .result-value { font-family: var(--mono); font-size: 0.94rem; font-weight: 700; color: var(--text); word-break: break-all; }
+  .result-value.master-val { color: var(--accent); font-size: 1.05rem; }
+  .no-results { padding: 22px; text-align: center; color: var(--text-dim); font-size: 0.78rem; font-family: var(--mono); }
 
-  .result-unit {
-    font-size: 0.65rem;
-    font-family: var(--mono);
-    letter-spacing: 0.5px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-bottom: 5px;
+  /* Export modal */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.72);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
   }
-
-  .result-value {
-    font-family: var(--mono);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    word-break: break-all;
+  .modal-backdrop.show { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    width: 100%; max-width: 440px;
+    padding: 22px;
+    transform: translateY(14px);
+    transition: transform 0.22s;
   }
-
-  .result-value.highlight { color: var(--accent); }
-
-  .result-sub {
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-    font-family: var(--mono);
-  }
-
-  /* No data state for results */
-  .no-results {
-    padding: 24px;
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 0.8rem;
-    font-family: var(--mono);
-  }
-
-  /* Tabs for Last / Total */
-  .tab-row {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .tab-btn {
-    flex: 1;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--text-muted);
-    font-family: var(--sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: -1px;
-  }
-  .tab-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-  .tab-btn:hover:not(.active) { color: var(--text); }
-
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* Undo toast */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
+  .modal-backdrop.show .modal { transform: translateY(0); }
+  .modal-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 16px; }
+  .export-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .export-option {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 0.8rem;
-    font-family: var(--mono);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: transform 0.3s ease;
-    z-index: 100;
-    box-shadow: 0 8px 32px var(--shadow);
+    padding: 13px 15px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: left; width: 100%;
+  }
+  .export-option:hover { border-color: var(--accent2); background: rgba(63,185,80,0.06); }
+  .export-option-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .export-option-desc { font-size: 0.67rem; color: var(--text-muted); font-family: var(--mono); line-height: 1.5; }
+  .modal-cancel {
+    width: 100%; background: transparent;
+    border: 1px solid var(--border); color: var(--text-muted);
+    border-radius: 8px; padding: 9px;
+    font-family: var(--sans); font-size: 0.8rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .modal-cancel:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 18px;
+    font-size: 0.78rem; font-family: var(--mono); color: var(--text);
+    display: flex; align-items: center; gap: 12px;
+    transition: transform 0.28s ease; z-index: 300;
+    box-shadow: 0 8px 32px var(--shadow); white-space: nowrap;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast-undo {
-    color: var(--accent);
-    cursor: pointer;
-    font-weight: 700;
-    background: none;
-    border: none;
-    font-family: var(--mono);
-    font-size: 0.8rem;
+    color: var(--accent); cursor: pointer; font-weight: 700;
+    background: none; border: none; font-family: var(--mono); font-size: 0.78rem;
   }
 
-  /* Responsive */
-  @media (max-width: 420px) {
+  @media (max-width: 430px) {
     .results-grid { grid-template-columns: 1fr; }
     .result-cell { border-right: none !important; }
     .result-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
     .result-cell:last-child { border-bottom: none; }
+    .entry-item { grid-template-columns: 18px 1fr auto auto; }
+    .entry-area-inp { display: none; }
   }
 </style>
 </head>
@@ -455,9 +362,9 @@
   <p class="subtitle">Multi-section rectangular area calculator</p>
 </header>
 
-<!-- Input Card -->
+<!-- Units Card -->
 <div class="card">
-  <div class="card-title">⬡ New Rectangle</div>
+  <div class="card-title">⬡ Unit Settings</div>
 
   <div class="unit-row">
     <span class="unit-label">INPUT UNIT</span>
@@ -472,6 +379,30 @@
     </select>
   </div>
 
+  <div class="unit-row" style="margin-bottom:4px">
+    <span class="unit-label">MASTER UNIT</span>
+    <select id="masterUnitSelect" class="master-highlight">
+      <option value="m2">m² — Square Metres</option>
+      <option value="ft2">sq feet — Square Feet</option>
+      <option value="mm2">mm² — Square Millimetres</option>
+      <option value="cm2">cm² — Square Centimetres</option>
+      <option value="acre">Acre</option>
+      <option value="cent">Cent (India)</option>
+      <option value="gunta">Gunta / Guntha</option>
+      <option value="marla">Marla (India)</option>
+      <option value="ground">Ground (Tamil Nadu)</option>
+      <option value="yd2">sq yards — Square Yards</option>
+      <option value="ha">Hectare</option>
+      <option value="km2">km² — Square Kilometres</option>
+    </select>
+  </div>
+  <div class="hint">★ Master unit is highlighted in results and shown prominently in the entries list.</div>
+</div>
+
+<!-- Manual Input Card -->
+<div class="card">
+  <div class="card-title">⬡ Add Rectangle Manually</div>
+
   <div class="input-row">
     <div class="field-group">
       <span class="field-label">L — Length</span>
@@ -481,260 +412,398 @@
       <span class="field-label">B — Breadth</span>
       <input type="number" id="breadthInput" placeholder="0.00" min="0" step="any">
     </div>
-    <button class="add-btn" id="addBtn" title="Add rectangle">＋</button>
+    <button class="add-btn" id="addBtn" title="Add (Enter)">＋</button>
   </div>
-
   <div class="error-msg" id="errorMsg">⚠ Enter valid positive values for both L and B.</div>
+
+  <div class="or-divider">OR IMPORT FROM EXCEL / CLIPBOARD</div>
+
+  <textarea class="paste-area" id="pasteArea" placeholder="Paste tab-separated rows from Excel here&#10;&#10;330&#9;330&#10;180&#9;110&#10;450&#9;300&#10;&#10;Also supports comma-separated values."></textarea>
+  <div class="paste-row">
+    <button class="paste-btn" id="pasteFromClipboardBtn">📋 Paste from Clipboard</button>
+    <button class="paste-btn" id="importPasteBtn">↳ Import Rows</button>
+  </div>
+  <div class="hint" id="pasteStatus">Supports tab-separated (Excel copy/paste) or comma-separated. One row = one rectangle. Uses the input unit selected above.</div>
 </div>
 
 <!-- Entries list -->
 <div class="entries-card">
   <div class="entries-header">
-    <div class="card-title">⬡ Rectangles Added</div>
-    <button class="clear-btn" id="clearBtn">Clear All</button>
+    <div class="card-title">⬡ Rectangles</div>
+    <div class="hdr-btns">
+      <button class="ghost-btn export-btn" id="exportBtn">⬇ Export</button>
+      <button class="ghost-btn" id="clearBtn">Clear All</button>
+    </div>
   </div>
   <div class="entries-list" id="entriesList">
     <div class="empty-state">
       <div class="empty-icon">▭</div>
-      No rectangles added yet.<br>Enter L & B above and press ＋
+      No rectangles yet.<br>Enter L &amp; B above, or paste from Excel.
     </div>
   </div>
 </div>
 
-<!-- Results Card -->
+<!-- Results -->
 <div class="results-card">
   <div class="results-header">
     <div class="card-title">⬡ Area Results</div>
     <div class="count-badge" id="countBadge">0 sections</div>
   </div>
-
   <div class="tab-row">
     <button class="tab-btn active" data-tab="last">Last Added</button>
     <button class="tab-btn" data-tab="total">Total Area</button>
   </div>
-
   <div class="tab-panel active" id="tab-last">
-    <div class="no-results" id="noResultsLast">Add a rectangle to see its area here.</div>
+    <div class="no-results" id="noResultsLast">Add a rectangle to see its area.</div>
     <div class="results-grid" id="lastGrid" style="display:none"></div>
   </div>
-
   <div class="tab-panel" id="tab-total">
-    <div class="no-results" id="noResultsTotal">Add rectangles to see the total area here.</div>
+    <div class="no-results" id="noResultsTotal">Add rectangles to see the total area.</div>
     <div class="results-grid" id="totalGrid" style="display:none"></div>
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal-backdrop" id="exportModal">
+  <div class="modal">
+    <div class="modal-title">⬇ Export Data</div>
+    <div class="export-options">
+      <button class="export-option" id="expExcel">
+        <div class="export-option-title">📊 Excel / TSV — Download File</div>
+        <div class="export-option-desc">Tab-separated · paste directly back into Excel<br>Cols: #, L, B, Unit, Area (input unit), + all 12 area units + TOTAL row</div>
+      </button>
+      <button class="export-option" id="expCopyExcel">
+        <div class="export-option-title">📎 Copy to Clipboard (Excel format)</div>
+        <div class="export-option-desc">Copies TSV to clipboard · Ctrl+V straight into Excel or Google Sheets</div>
+      </button>
+      <button class="export-option" id="expFormula">
+        <div class="export-option-title">📄 Formulated CSV — Download File</div>
+        <div class="export-option-desc">Excel formulas: =B*C per row, =SUM(...) for total<br>Open in Excel to auto-calculate</div>
+      </button>
+      <button class="export-option" id="expValues">
+        <div class="export-option-title">📋 Values-only CSV — Download File</div>
+        <div class="export-option-desc">Plain comma-separated · all 12 output units as columns · no formulas</div>
+      </button>
+    </div>
+    <button class="modal-cancel" id="exportCancel">Cancel</button>
   </div>
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast">
-  <span>Rectangle removed</span>
+  <span id="toastMsg">Rectangle removed</span>
   <button class="toast-undo" id="undoBtn">UNDO</button>
 </div>
 
 <script>
-  // ── Conversion factors to m² from each input unit ──
-  const toM2 = {
-    m:     1,
-    ft:    0.092903,
-    cm:    0.0001,
-    mm:    0.000001,
-    inch:  0.00064516,
-    yd:    0.836127,
-    km:    1_000_000,
-  };
+// ── Conversion: input unit → m² ──
+const toM2 = {
+  m: 1, ft: 0.092903, cm: 0.0001, mm: 0.000001,
+  inch: 0.00064516, yd: 0.836127, km: 1_000_000,
+};
 
-  // ── Output units (in order requested) ──
-  const outputUnits = [
-    { key: 'm2',      label: 'm²',           factor: 1 },
-    { key: 'ft2',     label: 'sq feet',       factor: 10.7639 },
-    { key: 'mm2',     label: 'mm²',           factor: 1_000_000 },
-    { key: 'cm2',     label: 'cm²',           factor: 10_000 },
-    { key: 'acre',    label: 'Acre',          factor: 0.000247105 },
-    { key: 'cent',    label: 'Cent (India)',   factor: 0.0247105 },
-    { key: 'gunta',   label: 'Gunta / Guntha', factor: 0.0988421 },
-    { key: 'marla',   label: 'Marla (India)',  factor: 0.039537 },
-    { key: 'ground',  label: 'Ground (TN)',    factor: 0.00185199 },
-    { key: 'yd2',     label: 'sq yards',       factor: 1.19599 },
-    { key: 'ha',      label: 'Hectare',        factor: 0.0001 },
-    { key: 'km2',     label: 'km²',            factor: 0.000001 },
-  ];
+// ── Output units list (order matters for display) ──
+const outputUnits = [
+  { key: 'm2',     label: 'm²',            factor: 1            },
+  { key: 'ft2',    label: 'sq feet',       factor: 10.7639      },
+  { key: 'mm2',    label: 'mm²',           factor: 1_000_000    },
+  { key: 'cm2',    label: 'cm²',           factor: 10_000       },
+  { key: 'acre',   label: 'Acre',          factor: 0.000247105  },
+  { key: 'cent',   label: 'Cent (India)',   factor: 0.0247105    },
+  { key: 'gunta',  label: 'Gunta/Guntha',  factor: 0.0988421    },
+  { key: 'marla',  label: 'Marla (India)',  factor: 0.039537     },
+  { key: 'ground', label: 'Ground (TN)',    factor: 0.00185199   },
+  { key: 'yd2',    label: 'sq yards',      factor: 1.19599      },
+  { key: 'ha',     label: 'Hectare',       factor: 0.0001       },
+  { key: 'km2',    label: 'km²',           factor: 0.000001     },
+];
 
-  let entries = [];     // { id, L, B, unit, areaM2 }
-  let lastRemoved = null;
-  let toastTimer = null;
-  let nextId = 1;
+let entries     = [];   // { id, L, B, unit, areaM2 }
+let lastRemoved = null;
+let toastTimer  = null;
+let nextId      = 1;
 
-  const lengthInput  = document.getElementById('lengthInput');
-  const breadthInput = document.getElementById('breadthInput');
-  const unitSelect   = document.getElementById('unitSelect');
-  const addBtn       = document.getElementById('addBtn');
-  const errorMsg     = document.getElementById('errorMsg');
-  const entriesList  = document.getElementById('entriesList');
-  const countBadge   = document.getElementById('countBadge');
-  const lastGrid     = document.getElementById('lastGrid');
-  const totalGrid    = document.getElementById('totalGrid');
-  const noResultsLast  = document.getElementById('noResultsLast');
-  const noResultsTotal = document.getElementById('noResultsTotal');
-  const clearBtn     = document.getElementById('clearBtn');
-  const toast        = document.getElementById('toast');
-  const undoBtn      = document.getElementById('undoBtn');
+// ── DOM ──
+const $ = id => document.getElementById(id);
+const lengthInput    = $('lengthInput');
+const breadthInput   = $('breadthInput');
+const unitSelect     = $('unitSelect');
+const masterSelect   = $('masterUnitSelect');
+const addBtn         = $('addBtn');
+const errorMsg       = $('errorMsg');
+const entriesList    = $('entriesList');
+const countBadge     = $('countBadge');
+const lastGrid       = $('lastGrid');
+const totalGrid      = $('totalGrid');
+const noResultsLast  = $('noResultsLast');
+const noResultsTotal = $('noResultsTotal');
+const clearBtn       = $('clearBtn');
+const pasteArea      = $('pasteArea');
+const pasteStatus    = $('pasteStatus');
+const exportModal    = $('exportModal');
+const toast          = $('toast');
+const toastMsg       = $('toastMsg');
+const undoBtn        = $('undoBtn');
 
-  function fmt(val) {
-    if (val === 0) return '0';
-    if (Math.abs(val) >= 0.001 && Math.abs(val) < 1e10) {
-      // Show up to 6 significant figures, strip trailing zeros
-      let s = parseFloat(val.toPrecision(6)).toString();
-      return s;
-    }
-    return val.toExponential(4);
+// ── Utils ──
+function fmt(v) {
+  if (v === 0) return '0';
+  if (Math.abs(v) >= 0.001 && Math.abs(v) < 1e10)
+    return parseFloat(v.toPrecision(6)).toString();
+  return v.toExponential(4);
+}
+function getMU() { return outputUnits.find(u => u.key === masterSelect.value) || outputUnits[0]; }
+
+// ── Render entries ──
+function renderEntries() {
+  if (!entries.length) {
+    entriesList.innerHTML = `<div class="empty-state"><div class="empty-icon">▭</div>No rectangles yet.<br>Enter L &amp; B above, or paste from Excel.</div>`;
+    return;
   }
-
-  function buildGrid(areaM2, gridEl) {
-    gridEl.innerHTML = '';
-    outputUnits.forEach((u, i) => {
-      const val = areaM2 * u.factor;
-      const cell = document.createElement('div');
-      cell.className = 'result-cell';
-      cell.innerHTML = `
-        <div class="result-unit">${u.label}</div>
-        <div class="result-value${i === 0 ? ' highlight' : ''}">${fmt(val)}</div>
-      `;
-      gridEl.appendChild(cell);
-    });
-  }
-
-  function renderEntries() {
-    if (entries.length === 0) {
-      entriesList.innerHTML = `<div class="empty-state"><div class="empty-icon">▭</div>No rectangles added yet.<br>Enter L & B above and press ＋</div>`;
-      return;
-    }
-    entriesList.innerHTML = '';
-    entries.forEach((e, idx) => {
-      const areaM2Display = e.areaM2 * (1 / toM2[e.unit]); // area in input unit
-      const item = document.createElement('div');
-      item.className = 'entry-item';
-      item.innerHTML = `
-        <span class="entry-num">${idx + 1}</span>
-        <div class="entry-dims">
-          ${fmt(e.L)} × ${fmt(e.B)} <span class="dim-unit">${e.unit}</span>
-        </div>
-        <div class="entry-area">
-          ${fmt(areaM2Display)} <span class="area-unit">${e.unit}²</span>
-        </div>
-        <button class="delete-entry" data-id="${e.id}" title="Remove">✕</button>
-      `;
-      entriesList.appendChild(item);
-    });
-    // Attach delete handlers
-    entriesList.querySelectorAll('.delete-entry').forEach(btn => {
-      btn.addEventListener('click', () => removeEntry(parseInt(btn.dataset.id)));
-    });
-  }
-
-  function renderResults() {
-    const count = entries.length;
-    countBadge.textContent = count === 1 ? '1 section' : `${count} sections`;
-
-    if (count === 0) {
-      lastGrid.style.display = 'none';
-      totalGrid.style.display = 'none';
-      noResultsLast.style.display = '';
-      noResultsTotal.style.display = '';
-    } else {
-      const last = entries[entries.length - 1];
-      lastGrid.style.display = 'grid';
-      noResultsLast.style.display = 'none';
-      buildGrid(last.areaM2, lastGrid);
-
-      const totalM2 = entries.reduce((s, e) => s + e.areaM2, 0);
-      totalGrid.style.display = 'grid';
-      noResultsTotal.style.display = 'none';
-      buildGrid(totalM2, totalGrid);
-    }
-  }
-
-  function addEntry() {
-    const L = parseFloat(lengthInput.value);
-    const B = parseFloat(breadthInput.value);
-    if (!L || !B || L <= 0 || B <= 0 || isNaN(L) || isNaN(B)) {
-      errorMsg.classList.add('show');
-      setTimeout(() => errorMsg.classList.remove('show'), 2500);
-      return;
-    }
-    errorMsg.classList.remove('show');
-    const unit = unitSelect.value;
-    const areaInputUnit = L * B;
-    const areaM2 = areaInputUnit * toM2[unit];
-
-    entries.push({ id: nextId++, L, B, unit, areaM2 });
-
-    lengthInput.value = '';
-    breadthInput.value = '';
-    lengthInput.focus();
-
-    renderEntries();
-    renderResults();
-
-    // Auto-switch to "total" tab when more than 1 entry
-    if (entries.length > 1) switchTab('total');
-    else switchTab('last');
-  }
-
-  function removeEntry(id) {
-    const idx = entries.findIndex(e => e.id === id);
-    if (idx === -1) return;
-    lastRemoved = { entry: entries[idx], idx };
-    entries.splice(idx, 1);
-    renderEntries();
-    renderResults();
-    showToast();
-  }
-
-  function showToast() {
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toast.classList.remove('show');
-      lastRemoved = null;
-    }, 4000);
-  }
-
-  undoBtn.addEventListener('click', () => {
-    if (!lastRemoved) return;
-    entries.splice(lastRemoved.idx, 0, lastRemoved.entry);
-    lastRemoved = null;
-    clearTimeout(toastTimer);
-    toast.classList.remove('show');
-    renderEntries();
-    renderResults();
+  const mu = getMU();
+  entriesList.innerHTML = '';
+  entries.forEach((e, i) => {
+    const areaInp = e.areaM2 / toM2[e.unit];
+    const areaMst = e.areaM2 * mu.factor;
+    const el = document.createElement('div');
+    el.className = 'entry-item';
+    el.innerHTML = `
+      <span class="entry-num">${i+1}</span>
+      <div class="entry-dims">${fmt(e.L)} × ${fmt(e.B)} <span class="dim-unit">${e.unit}</span></div>
+      <div class="entry-area-inp">${fmt(areaInp)} <span class="au">${e.unit}²</span></div>
+      <div class="entry-area-mst">${fmt(areaMst)}<span class="au">${mu.label}</span></div>
+      <button class="delete-entry" data-id="${e.id}" title="Remove">✕</button>
+    `;
+    entriesList.appendChild(el);
   });
+  entriesList.querySelectorAll('.delete-entry').forEach(b =>
+    b.addEventListener('click', () => removeEntry(+b.dataset.id))
+  );
+}
 
-  clearBtn.addEventListener('click', () => {
-    if (entries.length === 0) return;
-    entries = [];
-    lastRemoved = null;
-    renderEntries();
-    renderResults();
+// ── Render result grids ──
+function buildGrid(areaM2, el) {
+  const mk = masterSelect.value;
+  el.innerHTML = '';
+  outputUnits.forEach(u => {
+    const isMaster = u.key === mk;
+    const cell = document.createElement('div');
+    cell.className = 'result-cell' + (isMaster ? ' is-master' : '');
+    cell.innerHTML = `
+      <div class="result-unit">${u.label}${isMaster ? ' ★' : ''}</div>
+      <div class="result-value${isMaster ? ' master-val' : ''}">${fmt(areaM2 * u.factor)}</div>
+    `;
+    el.appendChild(cell);
   });
+}
 
-  addBtn.addEventListener('click', addEntry);
-
-  // Allow Enter key in inputs
-  [lengthInput, breadthInput].forEach(inp => {
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
-  });
-
-  // Tab switching
-  function switchTab(tabKey) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabKey));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${tabKey}`));
+function renderResults() {
+  const n = entries.length;
+  countBadge.textContent = n === 1 ? '1 section' : `${n} sections`;
+  if (!n) {
+    lastGrid.style.display = totalGrid.style.display = 'none';
+    noResultsLast.style.display = noResultsTotal.style.display = '';
+    return;
   }
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-  });
+  noResultsLast.style.display = noResultsTotal.style.display = 'none';
+  lastGrid.style.display = totalGrid.style.display = 'grid';
+  buildGrid(entries[n-1].areaM2, lastGrid);
+  buildGrid(entries.reduce((s,e) => s + e.areaM2, 0), totalGrid);
+}
 
-  // Init
-  renderEntries();
-  renderResults();
+function refreshAll() { renderEntries(); renderResults(); }
+
+// ── Add single entry ──
+function addEntry() {
+  const L = parseFloat(lengthInput.value);
+  const B = parseFloat(breadthInput.value);
+  if (!L || !B || L <= 0 || B <= 0 || isNaN(L) || isNaN(B)) {
+    errorMsg.classList.add('show');
+    setTimeout(() => errorMsg.classList.remove('show'), 2500);
+    return;
+  }
+  errorMsg.classList.remove('show');
+  const unit = unitSelect.value;
+  entries.push({ id: nextId++, L, B, unit, areaM2: L * B * toM2[unit] });
+  lengthInput.value = breadthInput.value = '';
+  lengthInput.focus();
+  refreshAll();
+  switchTab(entries.length > 1 ? 'total' : 'last');
+}
+
+// ── Parse pasted text ──
+function parsePaste(raw) {
+  const lines = raw.trim().split(/\r?\n/).filter(l => l.trim());
+  const ok = [], bad = [];
+  lines.forEach((line, i) => {
+    const parts = line.trim().split(/\t|,|[ ]{2,}/).map(p => p.trim()).filter(Boolean);
+    if (parts.length < 2) { bad.push(`Row ${i+1}: needs 2 values`); return; }
+    const L = parseFloat(parts[0]), B = parseFloat(parts[1]);
+    if (isNaN(L) || isNaN(B) || L <= 0 || B <= 0) { bad.push(`Row ${i+1}: invalid numbers`); return; }
+    ok.push({ L, B });
+  });
+  return { ok, bad };
+}
+
+function importText(text) {
+  const { ok, bad } = parsePaste(text);
+  if (!ok.length) {
+    pasteStatus.className = 'hint err';
+    pasteStatus.textContent = bad.length ? bad.join(' | ') : '⚠ No valid rows found.';
+    return;
+  }
+  const unit = unitSelect.value;
+  ok.forEach(({ L, B }) => entries.push({ id: nextId++, L, B, unit, areaM2: L * B * toM2[unit] }));
+  pasteStatus.className = 'hint ok';
+  pasteStatus.textContent = `✓ Imported ${ok.length} row(s)${bad.length ? ` · ${bad.length} skipped` : ''} as unit: ${unit}`;
+  pasteArea.value = '';
+  refreshAll();
+  switchTab('total');
+}
+
+// ── Delete / undo ──
+function removeEntry(id) {
+  const idx = entries.findIndex(e => e.id === id);
+  if (idx < 0) return;
+  lastRemoved = { entry: entries[idx], idx };
+  entries.splice(idx, 1);
+  refreshAll();
+  showToast('Rectangle removed', true);
+}
+
+function showToast(msg, showUndo = false) {
+  toastMsg.textContent = msg;
+  undoBtn.style.display = showUndo ? '' : 'none';
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.classList.remove('show'); lastRemoved = null; }, 4000);
+}
+
+// ── Tab switch ──
+function switchTab(key) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === key));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${key}`));
+}
+
+// ── Export builders ──
+function tsvRows() {
+  const hdrs = ['#','Length','Breadth','Input Unit','Area (input unit²)', ...outputUnits.map(u => u.label)].join('\t');
+  const rows = entries.map((e, i) => {
+    const aInp = fmt(e.areaM2 / toM2[e.unit]);
+    const aVals = outputUnits.map(u => fmt(e.areaM2 * u.factor));
+    return [i+1, e.L, e.B, e.unit, aInp, ...aVals].join('\t');
+  });
+  const totM2 = entries.reduce((s, e) => s + e.areaM2, 0);
+  const totVals = outputUnits.map(u => fmt(totM2 * u.factor));
+  const totRow = ['TOTAL','','','','', ...totVals].join('\t');
+  return [hdrs, ...rows, totRow].join('\n');
+}
+
+function valuesCSV() {
+  const hdrs = ['#','Length','Breadth','Input Unit','Area (input unit²)', ...outputUnits.map(u => u.label)].join(',');
+  const rows = entries.map((e, i) => {
+    const aInp = fmt(e.areaM2 / toM2[e.unit]);
+    const aVals = outputUnits.map(u => fmt(e.areaM2 * u.factor));
+    return [i+1, e.L, e.B, e.unit, aInp, ...aVals].join(',');
+  });
+  const totM2 = entries.reduce((s, e) => s + e.areaM2, 0);
+  const totVals = outputUnits.map(u => fmt(totM2 * u.factor));
+  const totRow = ['TOTAL','','','','', ...totVals].join(',');
+  return [hdrs, ...rows, totRow].join('\n');
+}
+
+function formulaCSV() {
+  const hdrs = ['#','Length (B col)','Breadth (C col)','Input Unit','Area Formula'].join(',');
+  const rows = entries.map((e, i) => {
+    const row = i + 2; // Excel row (1=header)
+    return [i+1, e.L, e.B, e.unit, `=B${row}*C${row}`].join(',');
+  });
+  const first = 2, last = entries.length + 1;
+  const totRow = ['TOTAL','','','', `=SUM(E${first}:E${last})`].join(',');
+  return [hdrs, ...rows, totRow, '', '# Note: Open in Excel – area column uses =L*B formulas in your chosen input unit'].join('\n');
+}
+
+function download(name, content, mime) {
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([content], { type: mime })),
+    download: name,
+  });
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+// ── Events ──
+addBtn.addEventListener('click', addEntry);
+[lengthInput, breadthInput].forEach(inp =>
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); })
+);
+
+$('pasteFromClipboardBtn').addEventListener('click', async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (!text.trim()) { pasteStatus.className = 'hint err'; pasteStatus.textContent = '⚠ Clipboard is empty.'; return; }
+    pasteArea.value = text;
+    pasteStatus.className = 'hint inf';
+    pasteStatus.textContent = '✓ Pasted into box — click "↳ Import Rows" to add.';
+  } catch {
+    pasteStatus.className = 'hint err';
+    pasteStatus.textContent = '⚠ Clipboard access denied — paste manually with Ctrl+V / ⌘V then click Import.';
+  }
+});
+
+$('importPasteBtn').addEventListener('click', () => {
+  const text = pasteArea.value.trim();
+  if (!text) { pasteStatus.className = 'hint err'; pasteStatus.textContent = '⚠ Nothing to import — paste data first.'; return; }
+  importText(text);
+});
+
+undoBtn.addEventListener('click', () => {
+  if (!lastRemoved) return;
+  entries.splice(lastRemoved.idx, 0, lastRemoved.entry);
+  lastRemoved = null; clearTimeout(toastTimer); toast.classList.remove('show');
+  refreshAll();
+});
+
+clearBtn.addEventListener('click', () => {
+  if (!entries.length) return;
+  entries = []; lastRemoved = null; refreshAll();
+});
+
+masterSelect.addEventListener('change', refreshAll);
+
+document.querySelectorAll('.tab-btn').forEach(b =>
+  b.addEventListener('click', () => switchTab(b.dataset.tab))
+);
+
+exportBtn.addEventListener('click', () => {
+  if (!entries.length) { showToast('No data to export', false); return; }
+  exportModal.classList.add('show');
+});
+exportModal.addEventListener('click', e => { if (e.target === exportModal) exportModal.classList.remove('show'); });
+$('exportCancel').addEventListener('click', () => exportModal.classList.remove('show'));
+
+$('expExcel').addEventListener('click', () => {
+  download('area-calc.tsv', tsvRows(), 'text/tab-separated-values');
+  exportModal.classList.remove('show'); showToast('TSV downloaded — open in Excel', false);
+});
+$('expCopyExcel').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(tsvRows());
+    exportModal.classList.remove('show'); showToast('✓ Copied! Paste into Excel with Ctrl+V', false);
+  } catch {
+    exportModal.classList.remove('show'); showToast('⚠ Clipboard write failed', false);
+  }
+});
+$('expFormula').addEventListener('click', () => {
+  download('area-calc-formulas.csv', formulaCSV(), 'text/csv');
+  exportModal.classList.remove('show'); showToast('Formula CSV downloaded', false);
+});
+$('expValues').addEventListener('click', () => {
+  download('area-calc-values.csv', valuesCSV(), 'text/csv');
+  exportModal.classList.remove('show'); showToast('Values CSV downloaded', false);
+});
+
+// ── Init ──
+refreshAll();
 </script>
 </body>
 </html>
