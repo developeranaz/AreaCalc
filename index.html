@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Area Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2333;
+    --border: #30363d;
+    --accent: #f6c90e;
+    --accent2: #3fb950;
+    --accent3: #ff7b72;
+    --text: #e6edf3;
+    --text-muted: #7d8590;
+    --text-dim: #484f58;
+    --shadow: rgba(0,0,0,0.4);
+    --radius: 12px;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(246,201,14,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 80%, rgba(63,185,80,0.06) 0%, transparent 50%);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+
+  h1 {
+    font-family: var(--sans);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    max-width: 520px;
+    margin: 0 auto 16px;
+  }
+
+  .card-title {
+    font-size: 0.7rem;
+    font-family: var(--mono);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .unit-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .unit-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-family: var(--mono);
+  }
+
+  select {
+    flex: 1;
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237d8590' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  select:focus { border-color: var(--accent); }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 0;
+  }
+
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .field-label {
+    font-size: 0.7rem;
+    font-family: var(--mono);
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  input[type="number"] {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input[type="number"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(246,201,14,0.12);
+  }
+  input[type="number"]::placeholder { color: var(--text-dim); }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { opacity: 0; }
+
+  .add-btn {
+    background: var(--accent);
+    color: #0d1117;
+    border: none;
+    border-radius: 8px;
+    width: 44px; height: 44px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    flex-shrink: 0;
+    align-self: end;
+  }
+  .add-btn:hover { background: #ffd740; transform: scale(1.07); box-shadow: 0 4px 16px rgba(246,201,14,0.3); }
+  .add-btn:active { transform: scale(0.96); }
+
+  /* Error message */
+  .error-msg {
+    font-size: 0.78rem;
+    color: var(--accent3);
+    font-family: var(--mono);
+    margin-top: 10px;
+    min-height: 18px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+
+  /* Entries list */
+  .entries-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    max-width: 520px;
+    margin: 0 auto 16px;
+    overflow: hidden;
+  }
+
+  .entries-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .entries-header .card-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .clear-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .clear-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  .entries-list { padding: 12px 0; }
+
+  .empty-state {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    font-family: var(--mono);
+  }
+
+  .empty-state .empty-icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.4; }
+
+  .entry-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 12px;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    animation: slideIn 0.25s ease;
+    transition: background 0.15s;
+  }
+  .entry-item:last-child { border-bottom: none; }
+  .entry-item:hover { background: rgba(255,255,255,0.02); }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    width: 22px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .entry-dims {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    flex: 1;
+  }
+
+  .entry-dims .dim-unit { font-size: 0.68rem; color: var(--text-dim); }
+
+  .entry-area {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    color: var(--accent2);
+    flex-shrink: 0;
+  }
+
+  .entry-area .area-unit { font-size: 0.65rem; color: var(--text-dim); display: block; }
+
+  .delete-entry {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .delete-entry:hover { color: var(--accent3); }
+
+  /* Results grid */
+  .results-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    max-width: 520px;
+    margin: 0 auto 16px;
+    overflow: hidden;
+  }
+
+  .results-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .results-header .card-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .count-badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    background: rgba(63,185,80,0.15);
+    color: var(--accent2);
+    border: 1px solid rgba(63,185,80,0.3);
+    border-radius: 20px;
+    padding: 2px 10px;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .result-cell {
+    padding: 14px 18px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .result-cell:nth-child(even) { border-right: none; }
+  .result-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+  .result-unit {
+    font-size: 0.65rem;
+    font-family: var(--mono);
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .result-value {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    word-break: break-all;
+  }
+
+  .result-value.highlight { color: var(--accent); }
+
+  .result-sub {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-family: var(--mono);
+  }
+
+  /* No data state for results */
+  .no-results {
+    padding: 24px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    font-family: var(--mono);
+  }
+
+  /* Tabs for Last / Total */
+  .tab-row {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-btn:hover:not(.active) { color: var(--text); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Undo toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    font-family: var(--mono);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 8px 32px var(--shadow);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast-undo {
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 700;
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 420px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .result-cell { border-right: none !important; }
+    .result-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .result-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-row">
+    <div class="logo-icon">📐</div>
+    <h1>Area <span>Calc</span></h1>
+  </div>
+  <p class="subtitle">Multi-section rectangular area calculator</p>
+</header>
+
+<!-- Input Card -->
+<div class="card">
+  <div class="card-title">⬡ New Rectangle</div>
+
+  <div class="unit-row">
+    <span class="unit-label">INPUT UNIT</span>
+    <select id="unitSelect">
+      <option value="m">Metre (m)</option>
+      <option value="ft">Foot (ft)</option>
+      <option value="cm">Centimetre (cm)</option>
+      <option value="mm">Millimetre (mm)</option>
+      <option value="inch">Inch (in)</option>
+      <option value="yd">Yard (yd)</option>
+      <option value="km">Kilometre (km)</option>
+    </select>
+  </div>
+
+  <div class="input-row">
+    <div class="field-group">
+      <span class="field-label">L — Length</span>
+      <input type="number" id="lengthInput" placeholder="0.00" min="0" step="any">
+    </div>
+    <div class="field-group">
+      <span class="field-label">B — Breadth</span>
+      <input type="number" id="breadthInput" placeholder="0.00" min="0" step="any">
+    </div>
+    <button class="add-btn" id="addBtn" title="Add rectangle">＋</button>
+  </div>
+
+  <div class="error-msg" id="errorMsg">⚠ Enter valid positive values for both L and B.</div>
+</div>
+
+<!-- Entries list -->
+<div class="entries-card">
+  <div class="entries-header">
+    <div class="card-title">⬡ Rectangles Added</div>
+    <button class="clear-btn" id="clearBtn">Clear All</button>
+  </div>
+  <div class="entries-list" id="entriesList">
+    <div class="empty-state">
+      <div class="empty-icon">▭</div>
+      No rectangles added yet.<br>Enter L & B above and press ＋
+    </div>
+  </div>
+</div>
+
+<!-- Results Card -->
+<div class="results-card">
+  <div class="results-header">
+    <div class="card-title">⬡ Area Results</div>
+    <div class="count-badge" id="countBadge">0 sections</div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" data-tab="last">Last Added</button>
+    <button class="tab-btn" data-tab="total">Total Area</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-last">
+    <div class="no-results" id="noResultsLast">Add a rectangle to see its area here.</div>
+    <div class="results-grid" id="lastGrid" style="display:none"></div>
+  </div>
+
+  <div class="tab-panel" id="tab-total">
+    <div class="no-results" id="noResultsTotal">Add rectangles to see the total area here.</div>
+    <div class="results-grid" id="totalGrid" style="display:none"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span>Rectangle removed</span>
+  <button class="toast-undo" id="undoBtn">UNDO</button>
+</div>
+
+<script>
+  // ── Conversion factors to m² from each input unit ──
+  const toM2 = {
+    m:     1,
+    ft:    0.092903,
+    cm:    0.0001,
+    mm:    0.000001,
+    inch:  0.00064516,
+    yd:    0.836127,
+    km:    1_000_000,
+  };
+
+  // ── Output units (in order requested) ──
+  const outputUnits = [
+    { key: 'm2',      label: 'm²',           factor: 1 },
+    { key: 'ft2',     label: 'sq feet',       factor: 10.7639 },
+    { key: 'mm2',     label: 'mm²',           factor: 1_000_000 },
+    { key: 'cm2',     label: 'cm²',           factor: 10_000 },
+    { key: 'acre',    label: 'Acre',          factor: 0.000247105 },
+    { key: 'cent',    label: 'Cent (India)',   factor: 0.0247105 },
+    { key: 'gunta',   label: 'Gunta / Guntha', factor: 0.0988421 },
+    { key: 'marla',   label: 'Marla (India)',  factor: 0.039537 },
+    { key: 'ground',  label: 'Ground (TN)',    factor: 0.00185199 },
+    { key: 'yd2',     label: 'sq yards',       factor: 1.19599 },
+    { key: 'ha',      label: 'Hectare',        factor: 0.0001 },
+    { key: 'km2',     label: 'km²',            factor: 0.000001 },
+  ];
+
+  let entries = [];     // { id, L, B, unit, areaM2 }
+  let lastRemoved = null;
+  let toastTimer = null;
+  let nextId = 1;
+
+  const lengthInput  = document.getElementById('lengthInput');
+  const breadthInput = document.getElementById('breadthInput');
+  const unitSelect   = document.getElementById('unitSelect');
+  const addBtn       = document.getElementById('addBtn');
+  const errorMsg     = document.getElementById('errorMsg');
+  const entriesList  = document.getElementById('entriesList');
+  const countBadge   = document.getElementById('countBadge');
+  const lastGrid     = document.getElementById('lastGrid');
+  const totalGrid    = document.getElementById('totalGrid');
+  const noResultsLast  = document.getElementById('noResultsLast');
+  const noResultsTotal = document.getElementById('noResultsTotal');
+  const clearBtn     = document.getElementById('clearBtn');
+  const toast        = document.getElementById('toast');
+  const undoBtn      = document.getElementById('undoBtn');
+
+  function fmt(val) {
+    if (val === 0) return '0';
+    if (Math.abs(val) >= 0.001 && Math.abs(val) < 1e10) {
+      // Show up to 6 significant figures, strip trailing zeros
+      let s = parseFloat(val.toPrecision(6)).toString();
+      return s;
+    }
+    return val.toExponential(4);
+  }
+
+  function buildGrid(areaM2, gridEl) {
+    gridEl.innerHTML = '';
+    outputUnits.forEach((u, i) => {
+      const val = areaM2 * u.factor;
+      const cell = document.createElement('div');
+      cell.className = 'result-cell';
+      cell.innerHTML = `
+        <div class="result-unit">${u.label}</div>
+        <div class="result-value${i === 0 ? ' highlight' : ''}">${fmt(val)}</div>
+      `;
+      gridEl.appendChild(cell);
+    });
+  }
+
+  function renderEntries() {
+    if (entries.length === 0) {
+      entriesList.innerHTML = `<div class="empty-state"><div class="empty-icon">▭</div>No rectangles added yet.<br>Enter L & B above and press ＋</div>`;
+      return;
+    }
+    entriesList.innerHTML = '';
+    entries.forEach((e, idx) => {
+      const areaM2Display = e.areaM2 * (1 / toM2[e.unit]); // area in input unit
+      const item = document.createElement('div');
+      item.className = 'entry-item';
+      item.innerHTML = `
+        <span class="entry-num">${idx + 1}</span>
+        <div class="entry-dims">
+          ${fmt(e.L)} × ${fmt(e.B)} <span class="dim-unit">${e.unit}</span>
+        </div>
+        <div class="entry-area">
+          ${fmt(areaM2Display)} <span class="area-unit">${e.unit}²</span>
+        </div>
+        <button class="delete-entry" data-id="${e.id}" title="Remove">✕</button>
+      `;
+      entriesList.appendChild(item);
+    });
+    // Attach delete handlers
+    entriesList.querySelectorAll('.delete-entry').forEach(btn => {
+      btn.addEventListener('click', () => removeEntry(parseInt(btn.dataset.id)));
+    });
+  }
+
+  function renderResults() {
+    const count = entries.length;
+    countBadge.textContent = count === 1 ? '1 section' : `${count} sections`;
+
+    if (count === 0) {
+      lastGrid.style.display = 'none';
+      totalGrid.style.display = 'none';
+      noResultsLast.style.display = '';
+      noResultsTotal.style.display = '';
+    } else {
+      const last = entries[entries.length - 1];
+      lastGrid.style.display = 'grid';
+      noResultsLast.style.display = 'none';
+      buildGrid(last.areaM2, lastGrid);
+
+      const totalM2 = entries.reduce((s, e) => s + e.areaM2, 0);
+      totalGrid.style.display = 'grid';
+      noResultsTotal.style.display = 'none';
+      buildGrid(totalM2, totalGrid);
+    }
+  }
+
+  function addEntry() {
+    const L = parseFloat(lengthInput.value);
+    const B = parseFloat(breadthInput.value);
+    if (!L || !B || L <= 0 || B <= 0 || isNaN(L) || isNaN(B)) {
+      errorMsg.classList.add('show');
+      setTimeout(() => errorMsg.classList.remove('show'), 2500);
+      return;
+    }
+    errorMsg.classList.remove('show');
+    const unit = unitSelect.value;
+    const areaInputUnit = L * B;
+    const areaM2 = areaInputUnit * toM2[unit];
+
+    entries.push({ id: nextId++, L, B, unit, areaM2 });
+
+    lengthInput.value = '';
+    breadthInput.value = '';
+    lengthInput.focus();
+
+    renderEntries();
+    renderResults();
+
+    // Auto-switch to "total" tab when more than 1 entry
+    if (entries.length > 1) switchTab('total');
+    else switchTab('last');
+  }
+
+  function removeEntry(id) {
+    const idx = entries.findIndex(e => e.id === id);
+    if (idx === -1) return;
+    lastRemoved = { entry: entries[idx], idx };
+    entries.splice(idx, 1);
+    renderEntries();
+    renderResults();
+    showToast();
+  }
+
+  function showToast() {
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+      lastRemoved = null;
+    }, 4000);
+  }
+
+  undoBtn.addEventListener('click', () => {
+    if (!lastRemoved) return;
+    entries.splice(lastRemoved.idx, 0, lastRemoved.entry);
+    lastRemoved = null;
+    clearTimeout(toastTimer);
+    toast.classList.remove('show');
+    renderEntries();
+    renderResults();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    if (entries.length === 0) return;
+    entries = [];
+    lastRemoved = null;
+    renderEntries();
+    renderResults();
+  });
+
+  addBtn.addEventListener('click', addEntry);
+
+  // Allow Enter key in inputs
+  [lengthInput, breadthInput].forEach(inp => {
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
+  });
+
+  // Tab switching
+  function switchTab(tabKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabKey));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${tabKey}`));
+  }
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // Init
+  renderEntries();
+  renderResults();
+</script>
+</body>
+</html>
