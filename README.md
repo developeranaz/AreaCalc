@@ -3,7 +3,7 @@
 A lightweight, zero-dependency single-file web app for calculating the area of multiple rectangular sections and tracking their combined total — built for field measurements, land surveys, and construction layouts.
 
 > **No install. No build step. No internet required after first load.** Just open the `.html` file in any browser.
-
+https://developeranaz.github.io/AreaCalc/
 ---
 
 ## ✨ Features
